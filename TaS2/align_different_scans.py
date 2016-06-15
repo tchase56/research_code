@@ -3,6 +3,14 @@ Tyler Chase
 06/14/2016
 align and average multiple scans together 
 aligning by 6 innermost bragg peaks
+
+Instructions
+0. Make sure align_average.py has already been run for each scan
+1. Change addresses
+2. Change scan number values (this code is written with the naming convention "scan#")
+1. Run the code
+2. Click the 6 innermost bragg peaks
+3. Click next to the 6 innermost bragg peaks (background)
 '''
 
 import numpy as np
@@ -11,6 +19,7 @@ from skimage.feature import register_translation
 from scipy.ndimage.interpolation import shift
 # User defined function
 import Region_Of_Interest_2
+
 
 
 
@@ -36,25 +45,8 @@ ROI_width = 32      # Make sure this is a power of 2
 run = []
 for i in scans:
     load_address_2 = load_address + 'scan' + str(i) + '\images-ANDOR1\\'
-    run.append(np.load(load_address_2 + 'averaged_aligned.npy'))
-    
+    run.append(np.load(load_address_2 + 'averaged_aligned.npy'))   
 [peak_region, background_region] = Region_Of_Interest_2.GetRegionOfInterest(run[0][0,:,:] ,6, halfLength=ROI_width/2, contrastFactor = 0.25)
-
-
-'''
-# Align them with respect to eachother and average 
-run_aligned = []    
-run_aligned.append(run[0])
-for i in range(1, len(run)):
-    offset = register_translation(run[0][0,:,:], run[i][0,:,:], pixel_accuracy)[0]
-    for j in range(0, np.shape(run[0])[0]):
-        run[i][j,:,:] = shift(run[i][j,:,:], offset)
-    run_aligned.append(run[i])
-runs_aligned_averaged = np.average(run_aligned,0)
-
-np.save(save_address + 'averaged_runs',runs_aligned_averaged)
-'''
-
 
 # Align them with respect to eachother and average 
 run_aligned = []    
