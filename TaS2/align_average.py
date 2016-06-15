@@ -5,6 +5,13 @@ This module reads in data from a scan from the UED beamline aligns all of the
 images, and saves an average over all images at each time delay. 
 Align by 6 innermost bragg peaks
 It saves both aligned and unaligned. 
+
+Instructions
+1. Change addresses
+2. Change delay stage values
+1. Run the code
+2. Click the 6 innermost bragg peaks
+3. Click next to the 6 innermost bragg peaks (background)
 '''
 
 import numpy as np
@@ -39,8 +46,6 @@ ROI_width = 32      # Make sure this is a power of 2
 
 
 
-
-
 # Make vector of delay stage values
 delay = np.arange(delayStage_start, delayStage_end + (delayStage_step)/2, delayStage_step)
 # Choose ROIs for four lowest order peaks for alignment
@@ -52,11 +57,12 @@ scan_times_aligned = []
 scan_times = []
 for i in delay:
     scan = []
-    for j in glob.glob(load_address + '*0' + "%0.4f" % i + '*.tif'):
+    # If get an error that array is empty check to make sure naming convention on the following line didn't change
+    for j in glob.glob(load_address + '*0' + "%0.4f" % i + '*.tif'): 
         scan.append(np.array(plt.imread(j)))
     print('delay stage ' + str(i))
     scan_times.append(np.average(np.array(scan),0))     # creating list of unaligned averaged images
-    # Align Images and plot percentage complete for each delay stage value
+    # Align Images and print percentage complete for each delay stage value
     percent_1 = 0  
     scan_2 = []
     scan_2.append(scan[0])
@@ -82,10 +88,11 @@ if len(scan_times_aligned) > 1:
                                             pixel_accuracy)[0] for m in range(0,6)]
         offset = np.average(offset_list,0)
         scan_times_aligned_2.append(shift(scan_times_aligned[l], offset))
+    # Save the aligned averages
     np.save(save_address + 'averaged_aligned', scan_times_aligned_2)
 else:
     np.save(save_address + 'averaged_aligned', scan_times_aligned)
 
-# Save the unaligned averages and the aligned averages        
+# Save the unaligned averages        
 np.save(save_address + 'averaged', scan_times)
 
