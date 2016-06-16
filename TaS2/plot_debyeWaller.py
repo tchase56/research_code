@@ -6,6 +6,7 @@ and analyzes the change in Bragg peak intensity as a function of time delay
 
 Instructions
 0. Make sure you have already run align_average.py or align_different_scans.py
+   (set different_scans flag accordingly)
 1. Change addresses
 2. Change delay stage values and make sure time zero is correct
 3. Flag which Bragg peaks you would like to plot (normalized by innermost)
@@ -34,8 +35,8 @@ import Fit_Peaks_2
 
 
 ''' Values to change for each run'''
-load_address = r'E:\tchase56\TaS2\20160611\TimeScan\scan3\images-ANDOR1\\'
-save_address = r'E:\tchase56\TaS2\20160611\TimeScan\scan3\images-ANDOR1\\'
+load_address = r'C:\Users\tchase56\Documents\UED\TaS2\20160611\Data\timescan\scan16\images-ANDOR1\\'
+save_address = r'C:\Users\tchase56\Documents\UED\TaS2\20160611\Data\timescan\scan16\images-ANDOR1\\'
 # Delay stage settings
 time_zero = 63.2
 delayStage_start, delayStage_end, delayStage_step  = [62.90, 63.80, 0.0150] 
@@ -56,11 +57,13 @@ y_min_debye_3 = 0.90
 y_min_debye_4 = 0.90
 y_min_debye_5 = 0.90
 y_min_debye_6 = 0.90
-y_max_debye = 1.05
+y_max_debye = 1.25
 # Plot in units of ps?
 ps_flag = 1
 # How many of the initial debye-waller points do you want to scale by?
 points = 2
+# Is this the output of align_average or the output of align_different_scans
+different_scans = 0
 
 
 
@@ -85,7 +88,10 @@ delay = np.round((np.array(delay_stage) - time_zero)*2*10**(-3)*(1.0/speed_of_li
 
 # Load data 
 if intensities_saved == 0:
-    pumped = np.load(load_address + 'averaged_aligned.npy')
+    if different_scans == 0:
+        pumped = np.load(load_address + 'averaged_aligned.npy')
+    else:
+        pumped = np.load(load_address + 'averaged_runs.npy')
     # Define peak ROIs
     [peak_region, background_region] = Region_Of_Interest_2.GetRegionOfInterest(pumped[0] ,6, halfLength=ROI_width/2, contrastFactor = 0.25)
     [peak_region_2, background_region_2] = Region_Of_Interest_2.GetRegionOfInterest(pumped[0] ,6, halfLength=ROI_width/2, contrastFactor = 0.25)
@@ -192,7 +198,7 @@ if debye_flag_2 == 1:
 if ps_flag == 1:
     plt.figure()
     plt.plot(delay, new_debye_gaussian_1, 'ro-', label = "New Data")
-    plt.title('[220]/[200]')
+    plt.title('SecondOrder/FirstOrder')
     plt.xlabel('Time Delay (ps)')
     plt.legend()
     plt.ylim(y_min_debye_1,y_max_debye)
@@ -201,7 +207,7 @@ if ps_flag == 1:
     if debye_flag_2 == 1:
         plt.figure()
         plt.plot(delay, new_debye_gaussian_2, 'ro-', label = "New Data")
-        plt.title('[400]/[200]')
+        plt.title('ThirdOrder/FirstOrder')
         plt.xlabel('Time Delay (ps)')
         plt.legend()
         plt.ylim(y_min_debye_2,y_max_debye)
@@ -210,7 +216,7 @@ if ps_flag == 1:
         if debye_flag_3 == 1:
             plt.figure()
             plt.plot(delay, new_debye_gaussian_3, 'ro-', label = "New Data")
-            plt.title('[420]/[200]')
+            plt.title('FourthOrder/FirstOrder')
             plt.xlabel('Time Delay (ps)')
             plt.legend()
             plt.ylim(y_min_debye_3,y_max_debye)
@@ -219,7 +225,7 @@ if ps_flag == 1:
             if debye_flag_4 == 1:
                 plt.figure()
                 plt.plot(delay, new_debye_gaussian_4, 'ro-', label = "New Data")
-                plt.title('[440]/[200]')
+                plt.title('FifthOrder/FirstOrder')
                 plt.xlabel('Time Delay (ps)')
                 plt.legend()
                 plt.ylim(y_min_debye_4,y_max_debye)
@@ -228,7 +234,7 @@ if ps_flag == 1:
                 if debye_flag_5 == 1:
                     plt.figure()
                     plt.plot(delay, new_debye_gaussian_5, 'ro-', label = "New Data")
-                    plt.title('[600]/[200]')
+                    plt.title('SixthOrder/FirstOrder')
                     plt.xlabel('Time Delay (ps)')
                     plt.legend()
                     plt.ylim(y_min_debye_5,y_max_debye)
@@ -237,7 +243,7 @@ if ps_flag == 1:
                     if debye_flag_6 == 1:
                         plt.figure()
                         plt.plot(delay, new_debye_gaussian_6, 'ro-', label = "New Data")
-                        plt.title('[620]/[200]')
+                        plt.title('SeventhOrder/FirstOrder')
                         plt.xlabel('Time Delay (ps)')
                         plt.legend()
                         plt.ylim(y_min_debye_5,y_max_debye)
@@ -246,7 +252,7 @@ if ps_flag == 1:
 else:
     plt.figure()
     plt.plot(delay_stage, new_debye_gaussian_1, 'ro-', label = "New Data")
-    plt.title('[220/200]')
+    plt.title('SecondOrder/FirstOrder')
     plt.xlabel('Delay Stage')
     plt.legend()
     plt.ylim(y_min_debye_1,y_max_debye)
@@ -255,7 +261,7 @@ else:
     if debye_flag_2 == 1:
         plt.figure()
         plt.plot(delay_stage, new_debye_gaussian_2, 'ro-', label = "New Data")
-        plt.title('[400]/[200]')
+        plt.title('ThirdOrder/FirstOrder')
         plt.xlabel('Delay Stage')
         plt.legend()
         plt.ylim(y_min_debye_2,y_max_debye)
@@ -264,7 +270,7 @@ else:
         if debye_flag_3 == 1:
             plt.figure()
             plt.plot(delay_stage, new_debye_gaussian_3, 'ro-', label = "New Data")
-            plt.title('[420]/[200]')
+            plt.title('FourthOrder/FirstOrder')
             plt.xlabel('Delay Stage')
             plt.legend()
             plt.ylim(y_min_debye_3,y_max_debye)
@@ -273,7 +279,7 @@ else:
             if debye_flag_4 == 1:
                 plt.figure()
                 plt.plot(delay_stage, new_debye_gaussian_4, 'ro-', label = "New Data")
-                plt.title('[440]/[200]')
+                plt.title('FifthOrder/FirstOrder')
                 plt.xlabel('Delay Stage')
                 plt.legend()
                 plt.ylim(y_min_debye_4,y_max_debye)
@@ -282,7 +288,7 @@ else:
                 if debye_flag_5 == 1:
                     plt.figure()
                     plt.plot(delay_stage, new_debye_gaussian_5, 'ro-', label = "New Data")
-                    plt.title('[600]/[200]')
+                    plt.title('SixthOrder/FirstOrder')
                     plt.xlabel('Delay Stage')
                     plt.legend()
                     plt.ylim(y_min_debye_5,y_max_debye)
@@ -291,7 +297,7 @@ else:
                     if debye_flag_6 == 1:
                         plt.figure()
                         plt.plot(delay_stage, new_debye_gaussian_6, 'ro-', label = "New Data")
-                        plt.title('[620]/[200]')
+                        plt.title('SeventhOrder/FirstOrder')
                         plt.xlabel('Delay Stage')
                         plt.legend()
                         plt.ylim(y_min_debye_5,y_max_debye)
