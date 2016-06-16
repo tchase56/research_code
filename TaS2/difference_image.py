@@ -5,17 +5,14 @@ average multiple time delays together and form difference images to see changes
 after the pump
 
 Instructions
-0. Make sure you have already run align_average.py or align_different_scans.py
+0. Make sure you have already run align_average.py or align_different_scans.py or symmetrize
    (set different_scans flag accordingly)
 1. Change addresses
 2. Change delay stage values and make sure time zero is correct
 3. Choose how many time delays you would like averaged together with group variable 
    (only intended to improve statistics)
-8. Run the code
-9. Click on the innermost bragg peaks
-10. Click next to the innermost bragg peaks (background)
-11. Iteritively repeat steps 9 and 10 until you are no longer prompted to choose
-    more peaks
+4. Run the code
+5. May need to change the set_clim for contrast line 77 or line 70
 '''
 
 import numpy as np
