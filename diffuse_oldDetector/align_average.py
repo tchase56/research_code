@@ -16,8 +16,8 @@ Instructions
 '''
 
 ''' Values to change for each run'''
-load_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan5\images-ANDOR1\\'
-save_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan5\images-ANDOR1\\'
+load_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan15\images-ANDOR1\\'
+save_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan15\images-ANDOR1\\'
 # Delay stage settings
 delayStage_start, delayStage_end, delayStage_step  = [67.025, 67.4, 0.0075]
 # Number of innermost peaks that you would like to align with respect to 
