@@ -16,27 +16,15 @@ Instructions
 '''
 
 ''' Values to change for each run'''
-load_address = r'E:\Klaus\20160701\Ni_scan12\images-ANDOR1\\'
-save_address = r'E:\Klaus\20160701\Ni_scan12\images-ANDOR1\\'
+load_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan5\images-ANDOR1\\'
+save_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan5\images-ANDOR1\\'
 # Delay stage settings
-#delayStage_start, delayStage_end, delayStage_step  = [64.67, 65.27, 0.1] 
-#delayStage_start, delayStage_end, delayStage_step  = [64.65, 65.25, 0.1]
-#delayStage_start, delayStage_end, delayStage_step  = [64.15, 66.15, 0.02] 
-#delayStage_start, delayStage_end, delayStage_step  = [64.35, 65.55, 0.2] 
-#delayStage_start, delayStage_end, delayStage_step  = [64.3, 65.5, 0.02] 
-#delayStage_start, delayStage_end, delayStage_step  = [64.48, 65.68, 0.2] 
-#delayStage_start, delayStage_end, delayStage_step  = [64.46, 65.66, 0.2]
-#delayStage_start, delayStage_end, delayStage_step  = [62.0, 68.0, 0.1]
-#delayStage_start, delayStage_end, delayStage_step  = [63.0, 69.0, 1.0]
-#delayStage_start, delayStage_end, delayStage_step  = [64.3, 65.7, 0.2]
-#delayStage_start, delayStage_end, delayStage_step  = [64.3, 65.7, 0.01]
-delayStage_start, delayStage_end, delayStage_step  = [64.4, 65.2, 0.02]
-
+delayStage_start, delayStage_end, delayStage_step  = [67.025, 67.4, 0.0075]
 # Number of innermost peaks that you would like to align with respect to 
-nbpeaks = 4
+nbpeaks = 6
 # Pixel accuracy with wich to align
 pixel_accuracy = 100      # Align with accuracy of 1/(pixel_accuracy)
-ROI_width = 64      # Make sure this is a power of 2 (should be slightly faster)
+ROI_width = 32      # Make sure this is a power of 2 (should be slightly faster)
 
 
 
