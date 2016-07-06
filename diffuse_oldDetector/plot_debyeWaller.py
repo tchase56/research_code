@@ -26,17 +26,17 @@ until you are no longer prompted to choose more peaks
 '''
 
 ''' Values to change for each run'''
-load_address = r'E:\Klaus\20160701\Ni_scan12\images-ANDOR1\\'
-save_address = r'E:\Klaus\20160701\Ni_scan12\images-ANDOR1\\'
+load_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan5\images-ANDOR1\\'
+save_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan5\images-ANDOR1\\'
 # Delay stage settings
 time_zero = 64.47
 #delayStage_start, delayStage_end, delayStage_step  = [64.15, 66.15, 0.02]
 #delayStage_start, delayStage_end, delayStage_step  = [64.3, 65.5, 0.02]  
 #delayStage_start, delayStage_end, delayStage_step  = [62.0, 68.0, 0.1]
-delayStage_start, delayStage_end, delayStage_step  = [64.4, 65.2, 0.02]
+delayStage_start, delayStage_end, delayStage_step  = [67.025, 67.4, 0.0075]
 
 # How wide do you want the ROIs for chooseing bragg peaks?
-ROI_width = 64      
+ROI_width = 16      
 # Which Debye-Waller peaks would you like Saved/Plotted
 debye_flag_2 = 0    
 debye_flag_3 = 0
@@ -46,17 +46,17 @@ debye_flag_6 = 0
 # Have the peak intensities been saved? (Have you chosen ROI's Already?)
 intensities_saved = 0
 # Y-scale for debye-waller plots
-y_min_debye_1 = 0.925
+y_min_debye_1 = 0.95
 y_min_debye_2 = 0.95
 y_min_debye_3 = 0.92
 y_min_debye_4 = 0.90
 y_min_debye_5 = 0.90
 y_min_debye_6 = 0.90
-y_max_debye = 1.015
+y_max_debye = 1.1
 # Plot in units of ps?
 ps_flag = 0
 # How many of the initial debye-waller points do you want to scale by?
-points = 4
+points = 2
 # Is this the output of align_average or the output of align_different_scans
 different_scans = 0
 
@@ -95,8 +95,8 @@ if intensities_saved == 0:
         pumped = np.load(load_address + 'averaged_runs.npy')
     pumped_ave = np.average(pumped, 0)
     # Define peak ROIs
-    [peak_region, background_region] = Region_Of_Interest_2.GetRegionOfInterest(pumped_ave ,4, halfLength=ROI_width/2, contrastFactor = 0.25)
-    [peak_region_2, background_region_2] = Region_Of_Interest_2.GetRegionOfInterest(pumped_ave ,4, halfLength=ROI_width/2, contrastFactor = 0.25)
+    [peak_region, background_region] = Region_Of_Interest_2.GetRegionOfInterest(pumped_ave ,6, halfLength=ROI_width/2, contrastFactor = 0.25)
+    [peak_region_2, background_region_2] = Region_Of_Interest_2.GetRegionOfInterest(pumped_ave ,6, halfLength=ROI_width/2, contrastFactor = 0.25)
     if debye_flag_2 == 1:
         [peak_region_3, background_region_3] = Region_Of_Interest_2.GetRegionOfInterest(pumped_ave ,4, halfLength=ROI_width/2, contrastFactor = 0.25)
         if debye_flag_3 == 1:
@@ -175,31 +175,32 @@ if debye_flag_2 == 1:
                     new_debye_gaussian_6 = peak_intensity_gaussian[6,:]/peak_intensity_gaussian[0,:]
                     new_debye_gaussian_6 = Scale(new_debye_gaussian_6, list(range(points)))
                     
-'''                   
+                   
 # Normalize peaks by innermost peak and scale them to 1 (for sum of ROI intensity)
-new_debye_gaussian_1 = peak_intensity[1,:]/peak_intensity[0,:]
-new_debye_gaussian_1 = Scale(new_debye_gaussian_1, list(range(points)))
+new_debye_intensity_1 = peak_intensity[1,:]/peak_intensity[0,:]
+new_debye_intensity_1 = Scale(new_debye_intensity_1, list(range(points)))
 if debye_flag_2 == 1:
-    new_debye_gaussian_2 = peak_intensity[2,:]/peak_intensity[0,:]
-    new_debye_gaussian_2 = Scale(new_debye_gaussian_2, list(range(points)))
+    new_debye_intensity_2 = peak_intensity[2,:]/peak_intensity[0,:]
+    new_debye_intensity_2 = Scale(new_debye_intensity_2, list(range(points)))
     if debye_flag_3 == 1:
-        new_debye_gaussian_3 = peak_intensity[3,:]/peak_intensity[0,:]
-        new_debye_gaussian_3 = Scale(new_debye_gaussian_3, list(range(points)))
+        new_debye_intensity_3 = peak_intensity[3,:]/peak_intensity[0,:]
+        new_debye_intensity_3 = Scale(new_debye_intensity_3, list(range(points)))
         if debye_flag_4 == 1:
-            new_debye_gaussian_4 = peak_intensity[4,:]/peak_intensity[0,:]
-            new_debye_gaussian_4 = Scale(new_debye_gaussian_4, list(range(points)))
+            new_debye_intensity_4 = peak_intensity[4,:]/peak_intensity[0,:]
+            new_debye_intensity_4 = Scale(new_debye_intensity_4, list(range(points)))
             if debye_flag_5 == 1:
-                new_debye_gaussian_5 = peak_intensity[5,:]/peak_intensity[0,:]
-                new_debye_gaussian_5 = Scale(new_debye_gaussian_5, list(range(points)))
+                new_debye_intensity_5 = peak_intensity[5,:]/peak_intensity[0,:]
+                new_debye_intensity_5 = Scale(new_debye_intensity_5, list(range(points)))
                 if debye_flag_6 == 1:
-                    new_debye_gaussian_6 = peak_intensity[6,:]/peak_intensity[0,:]
-                    new_debye_gaussian_6 = Scale(new_debye_gaussian_6, list(range(points)))
-'''
+                    new_debye_intensity_6 = peak_intensity[6,:]/peak_intensity[0,:]
+                    new_debye_intensity_6 = Scale(new_debye_intensity_6, list(range(points)))
+
 
 # Plot debye-waller (in units of picoseconds)
 if ps_flag == 1:
     plt.figure()
-    plt.plot(delay, new_debye_gaussian_1, 'ro-', label = "New Data")
+    plt.plot(delay, new_debye_gaussian_1, 'ro-', label = "gaussian")
+    plt.plot(delay, new_debye_intensity_1, 'bo-', label = "fit")
     plt.title('SecondOrder/FirstOrder')
     plt.xlabel('Time Delay (ps)')
     plt.legend()
@@ -208,7 +209,8 @@ if ps_flag == 1:
 
     if debye_flag_2 == 1:
         plt.figure()
-        plt.plot(delay, new_debye_gaussian_2, 'ro-', label = "New Data")
+        plt.plot(delay, new_debye_gaussian_2, 'ro-', label = "gaussian")
+        plt.plot(delay, new_debye_intensity_2, 'bo-', label = "fit")
         plt.title('ThirdOrder/FirstOrder')
         plt.xlabel('Time Delay (ps)')
         plt.legend()
@@ -217,7 +219,8 @@ if ps_flag == 1:
 
         if debye_flag_3 == 1:
             plt.figure()
-            plt.plot(delay, new_debye_gaussian_3, 'ro-', label = "New Data")
+            plt.plot(delay, new_debye_gaussian_3, 'ro-', label = "gaussian")
+            plt.plot(delay, new_debye_intensity_3, 'bo-', label = "fit")
             plt.title('FourthOrder/FirstOrder')
             plt.xlabel('Time Delay (ps)')
             plt.legend()
@@ -226,7 +229,8 @@ if ps_flag == 1:
         
             if debye_flag_4 == 1:
                 plt.figure()
-                plt.plot(delay, new_debye_gaussian_4, 'ro-', label = "New Data")
+                plt.plot(delay, new_debye_gaussian_4, 'ro-', label = "gaussian")
+                plt.plot(delay, new_debye_intensity_4, 'bo-', label = "fit")
                 plt.title('FifthOrder/FirstOrder')
                 plt.xlabel('Time Delay (ps)')
                 plt.legend()
@@ -235,7 +239,8 @@ if ps_flag == 1:
         
                 if debye_flag_5 == 1:
                     plt.figure()
-                    plt.plot(delay, new_debye_gaussian_5, 'ro-', label = "New Data")
+                    plt.plot(delay, new_debye_gaussian_5, 'ro-', label = "gaussian")
+                    plt.plot(delay, new_debye_intensity_5, 'bo-', label = "fit")
                     plt.title('sat/FirstOrder')
                     plt.xlabel('Time Delay (ps)')
                     plt.legend()
@@ -244,7 +249,8 @@ if ps_flag == 1:
                 
                     if debye_flag_6 == 1:
                         plt.figure()
-                        plt.plot(delay, new_debye_gaussian_6, 'ro-', label = "New Data")
+                        plt.plot(delay, new_debye_gaussian_6, 'ro-', label = "gaussian")
+                        plt.plot(delay, new_debye_intensity_6, 'bo-', label = "fit")
                         plt.title('SeventhOrder/FirstOrder')
                         plt.xlabel('Time Delay (ps)')
                         plt.legend()
@@ -253,7 +259,8 @@ if ps_flag == 1:
 # Plot debye-waller (in units of delay stage distance)
 else:
     plt.figure()
-    plt.plot(delay_stage, new_debye_gaussian_1, 'ro-', label = "New Data")
+    plt.plot(delay_stage, new_debye_gaussian_1, 'ro-', label = "gaussian")
+    plt.plot(delay_stage, new_debye_intensity_1, 'bo-', label = "intensity")
     plt.title('SecondOrder/FirstOrder')
     plt.xlabel('Delay Stage')
     plt.legend()
@@ -262,7 +269,8 @@ else:
 
     if debye_flag_2 == 1:
         plt.figure()
-        plt.plot(delay_stage, new_debye_gaussian_2, 'ro-', label = "New Data")
+        plt.plot(delay_stage, new_debye_gaussian_2, 'ro-', label = "gaussian")
+        plt.plot(delay_stage, new_debye_intensity_2, 'bo-', label = "intensity")
         plt.title('ThirdOrder/FirstOrder')
         plt.xlabel('Delay Stage')
         plt.legend()
@@ -271,7 +279,8 @@ else:
 
         if debye_flag_3 == 1:
             plt.figure()
-            plt.plot(delay_stage, new_debye_gaussian_3, 'ro-', label = "New Data")
+            plt.plot(delay_stage, new_debye_gaussian_3, 'ro-', label = "gaussian")
+            plt.plot(delay_stage, new_debye_intensity_3, 'bo-', label = "intensity")
             plt.title('FourthOrder/FirstOrder')
             plt.xlabel('Delay Stage')
             plt.legend()
@@ -280,7 +289,8 @@ else:
         
             if debye_flag_4 == 1:
                 plt.figure()
-                plt.plot(delay_stage, new_debye_gaussian_4, 'ro-', label = "New Data")
+                plt.plot(delay_stage, new_debye_gaussian_4, 'ro-', label = "gaussian")
+                plt.plot(delay_stage, new_debye_intensity_4, 'bo-', label = "intensity")
                 plt.title('FifthOrder/FirstOrder')
                 plt.xlabel('Delay Stage')
                 plt.legend()
@@ -289,7 +299,8 @@ else:
         
                 if debye_flag_5 == 1:
                     plt.figure()
-                    plt.plot(delay_stage, new_debye_gaussian_5, 'ro-', label = "New Data")
+                    plt.plot(delay_stage, new_debye_gaussian_5, 'ro-', label = "gaussian")
+                    plt.plot(delay_stage, new_debye_intensity_5, 'bo-', label = "intensity")
                     plt.title('sat/FirstOrder')
                     plt.xlabel('Delay Stage')
                     plt.legend()
@@ -298,7 +309,8 @@ else:
                 
                     if debye_flag_6 == 1:
                         plt.figure()
-                        plt.plot(delay_stage, new_debye_gaussian_6, 'ro-', label = "New Data")
+                        plt.plot(delay_stage, new_debye_gaussian_6, 'ro-', label = "gaussian")
+                        plt.plot(delay_stage, new_debye_intensity_6, 'bo-', label = "intensity")
                         plt.title('SeventhOrder/FirstOrder')
                         plt.xlabel('Delay Stage')
                         plt.legend()
