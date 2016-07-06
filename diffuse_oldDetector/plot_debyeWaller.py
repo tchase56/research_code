@@ -44,7 +44,7 @@ debye_flag_4 = 1
 debye_flag_5 = 1    
 debye_flag_6 = 0
 # Have the peak intensities been saved? (Have you chosen ROI's Already?)
-intensities_saved = 0
+intensities_saved = 1
 # Y-scale for debye-waller plots
 y_min_debye_1 = 0.95
 y_min_debye_2 = 0.95
@@ -236,6 +236,175 @@ if debye_flag_2 == 1:
                     peak_expansion_7 = Scale(peak_expansion_6, list(range(points)))               
 
 
+# Plot debye-waller (in units of picoseconds)
+if ps_flag == 1:
+    plt.figure()
+    plt.plot(delay, new_debye_gaussian_1, label = "SecondOrder/FirstOrder")
+    plt.title('Debye-Waller')
+    plt.xlabel('Time Delay (ps)')
+    plt.legend()
+    plt.ylim(y_min_debye_1,y_max_debye)
+    plt.show()
+
+    if debye_flag_2 == 1:
+        plt.plot(delay, new_debye_gaussian_2, label = "ThirdOrder/FirstOrder")
+        plt.legend()
+        plt.ylim(y_min_debye_2,y_max_debye)
+        plt.show()
+
+        if debye_flag_3 == 1:
+            plt.plot(delay, new_debye_gaussian_3, label = "FourthOrder/FirstOrder")
+            plt.legend()
+            plt.ylim(y_min_debye_3,y_max_debye)
+            plt.show()
+        
+            if debye_flag_4 == 1:
+                plt.plot(delay, new_debye_gaussian_4, label = "FifthOrder/FirstOrder")
+                plt.legend()
+                plt.ylim(y_min_debye_4,y_max_debye)
+                plt.show()
+        
+                if debye_flag_5 == 1:
+                    plt.plot(delay, new_debye_gaussian_5, label = "SixthOrder/FirstOrder")
+                    plt.legend()
+                    plt.ylim(y_min_debye_5,y_max_debye)
+                    plt.show()
+                
+                    if debye_flag_6 == 1:
+                        plt.plot(delay, new_debye_gaussian_6, label = "SeventhOrder/FirstOrder")
+                        plt.legend()
+                        plt.ylim(y_min_debye_5,y_max_debye)
+                        plt.show()
+# Plot debye-waller (in units of delay stage distance)
+else:
+    plt.figure()
+    plt.plot(delay_stage, new_debye_gaussian_1, label = "SecondOrder/FirstOrder")
+    plt.title('Debye-Waller')
+    plt.xlabel('Delay Stage')
+    plt.ylim(y_min_debye_1,y_max_debye)
+    plt.show()
+
+    if debye_flag_2 == 1:
+        plt.plot(delay_stage, new_debye_gaussian_2, label = "ThirdOrder/FirstOrder")
+        plt.legend()
+        plt.ylim(y_min_debye_2,y_max_debye)
+        plt.show()
+
+        if debye_flag_3 == 1:
+            plt.plot(delay_stage, new_debye_gaussian_3, label = "FourthOrder/FirstOrder")
+            plt.legend()
+            plt.ylim(y_min_debye_3,y_max_debye)
+            plt.show()
+        
+            if debye_flag_4 == 1:
+                plt.plot(delay_stage, new_debye_gaussian_4, label = "FifthOrder/FirstOrder")
+                plt.legend()
+                plt.ylim(y_min_debye_4,y_max_debye)
+                plt.show()
+        
+                if debye_flag_5 == 1:
+                    plt.plot(delay_stage, new_debye_gaussian_5, label = "SixthOrder/FirstOrder")
+                    plt.legend()
+                    plt.ylim(y_min_debye_5,y_max_debye)
+                    plt.show()
+                
+                    if debye_flag_6 == 1:
+                        plt.plot(delay_stage, new_debye_gaussian_6, label = "SeventhOrder/FirstOrder")
+                        plt.legend()
+                        plt.ylim(y_min_debye_5,y_max_debye)
+                        plt.show()   
+                        
+# Plot peak expansion (in units of picoseconds)
+if ps_flag == 1:
+    plt.figure()
+    plt.plot(delay, peak_expansion_1, label = 'FirstOrder Expansion')
+    plt.legend()
+    plt.title('Lattice Expansion')
+    plt.xlabel('Time Delay (ps)')
+    #plt.ylim(y_min_debye_1,y_max_debye)
+    plt.show()
+    plt.plot(delay, peak_expansion_2, label = 'SecondOrder Expansion')
+    plt.legend()
+    #plt.ylim(y_min_debye_1,y_max_debye)
+    plt.show()
+    if debye_flag_2 == 1:
+        plt.plot(delay, peak_expansion_3, label = 'ThirdOrder Expansion')
+        plt.legend()
+        #plt.ylim(y_min_debye_2,y_max_debye)
+        plt.show()
+
+        if debye_flag_3 == 1:
+            plt.plot(delay, peak_expansion_4, label = 'FourthOrder Expansion')
+            plt.legend()
+            #plt.ylim(y_min_debye_3,y_max_debye)
+            plt.show()
+        
+            if debye_flag_4 == 1:
+                plt.plot(delay, peak_expansion_5, label = 'FifthOrder Expansion')
+                plt.legend()
+                #plt.ylim(y_min_debye_4,y_max_debye)
+                plt.show()
+        
+                if debye_flag_5 == 1:
+                    plt.plot(delay, peak_expansion_6, label = 'SixthOrder Expansion')
+                    plt.legend()
+                    #plt.ylim(y_min_debye_5,y_max_debye)
+                    plt.show()
+                
+                    if debye_flag_6 == 1:
+                        plt.plot(delay, peak_expansion_7, label = 'SeventhOrder/FirstOrder')
+                        plt.legend()
+                        #plt.ylim(y_min_debye_5,y_max_debye)
+                        plt.show()
+# Plot peak expansion (in units of delay stage distance)
+else:
+    plt.figure()
+    plt.plot(delay_stage, peak_expansion_1, label = 'FirstOrder Expansion')
+    plt.legend()
+    plt.title('Lattice Expansion')
+    plt.xlabel('Time Delay (ps)')
+    #plt.ylim(y_min_debye_1,y_max_debye)
+    plt.show()
+    plt.plot(delay_stage, peak_expansion_2, label = 'SecondOrder Expansion')
+    plt.legend()
+    plt.xlabel('Time Delay (ps)')
+    #plt.ylim(y_min_debye_1,y_max_debye)
+    plt.show()
+    if debye_flag_2 == 1:
+        plt.plot(delay_stage, peak_expansion_3, label = 'ThirdOrder Expansion')
+        plt.legend()
+        plt.xlabel('Time Delay (ps)')
+        #plt.ylim(y_min_debye_2,y_max_debye)
+        plt.show()
+
+        if debye_flag_3 == 1:
+            plt.plot(delay_stage, peak_expansion_4, label = 'FourthOrder Expansion')
+            plt.legend()
+            plt.xlabel('Time Delay (ps)')
+            #plt.ylim(y_min_debye_3,y_max_debye)
+            plt.show()
+        
+            if debye_flag_4 == 1:
+                plt.plot(delay_stage, peak_expansion_5, label = 'FifthOrder Expansion')
+                plt.legend()
+                plt.xlabel('Time Delay (ps)')
+                #plt.ylim(y_min_debye_4,y_max_debye)
+                plt.show()
+        
+                if debye_flag_5 == 1:
+                    plt.plot(delay_stage, peak_expansion_6, label = 'SixthOrder Expansion')
+                    plt.legend()
+                    plt.xlabel('Time Delay (ps)')
+                    #plt.ylim(y_min_debye_5,y_max_debye)
+                    plt.show()
+                
+                    if debye_flag_6 == 1:
+                        plt.plot(delay_stage, peak_expansion_7, label = 'SeventhOrder/FirstOrder')
+                        plt.legend()
+                        plt.xlabel('Time Delay (ps)')
+                        #plt.ylim(y_min_debye_5,y_max_debye)
+                        plt.show() 
+'''
 # Plot debye-waller (in units of picoseconds)
 if ps_flag == 1:
     plt.figure()
@@ -463,3 +632,4 @@ else:
                         plt.xlabel('Time Delay (ps)')
                         #plt.ylim(y_min_debye_5,y_max_debye)
                         plt.show()  
+'''
