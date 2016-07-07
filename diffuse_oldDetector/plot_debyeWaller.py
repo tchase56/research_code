@@ -26,14 +26,14 @@ until you are no longer prompted to choose more peaks
 '''
 
 ''' Values to change for each run'''
-load_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan15\images-ANDOR1\\'
-save_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan15\images-ANDOR1\\'
+load_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan7\images-ANDOR1\\'
+save_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan7\images-ANDOR1\\'
 # Delay stage settings
 time_zero = 64.47
 #delayStage_start, delayStage_end, delayStage_step  = [64.15, 66.15, 0.02]
 #delayStage_start, delayStage_end, delayStage_step  = [64.3, 65.5, 0.02]  
 #delayStage_start, delayStage_end, delayStage_step  = [62.0, 68.0, 0.1]
-delayStage_start, delayStage_end, delayStage_step  = [67.025, 67.4, 0.0075]
+delayStage_start, delayStage_end, delayStage_step  = [67.125, 67.5, 0.0075]
 
 # How wide do you want the ROIs for chooseing bragg peaks?
 ROI_width = 16      
@@ -44,7 +44,7 @@ debye_flag_4 = 1
 debye_flag_5 = 1    
 debye_flag_6 = 0
 # Have the peak intensities been saved? (Have you chosen ROI's Already?)
-intensities_saved = 1
+intensities_saved = 0
 # Y-scale for debye-waller plots
 y_min_debye_1 = 0.95
 y_min_debye_2 = 0.95
