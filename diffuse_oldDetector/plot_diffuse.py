@@ -14,19 +14,19 @@ Instructions
 '''
 
 ''' Values to change for each run'''
-load_address = r'E:\Klaus\20160630\\'
+load_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\short\\'
 # Delay stage settings
 #delayStage_start, delayStage_end, delayStage_step  = [64.3, 65.5, 0.2] 
-delayStage_start, delayStage_end, delayStage_step  = [64.3, 65.7, 0.2]
+delayStage_start, delayStage_end, delayStage_step  = [63.7, 64.30, 0.1]
 
-time_zero = 64.47
+time_zero = 63.86
 # Flags
 clim_flag = 1     # Do you want to saturate large values on colorbar when plotting?
-clim_value = 50     # maximum value on colorbar when saturating large intensities
+clim_value = 10     # maximum value on colorbar when saturating large intensities
 # Which image to use for reference?
 reference_num = 0
 # Is this the output of align_average or the output of align_different_scans
-different_scans = 2
+different_scans = 1
 
 
 
@@ -50,10 +50,10 @@ if different_scans == 0:
     pumped = np.load(load_address + 'averaged_aligned.npy')
     reference = pumped[reference_num,:,:]
 elif different_scans == 1:
-    pumped = np.load(load_address + 'averaged_runs_highFluence.npy')
+    pumped = np.load(load_address + 'averaged_runs.npy')
     reference = pumped[reference_num,:,:]
 else:
-    pumped = np.load(load_address + 'symmetrized_highFluence.npy')
+    pumped = np.load(load_address + 'symmetrized.npy')
     reference = pumped[reference_num,:,:]
 
 # Plot diffuse scattering
