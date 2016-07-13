@@ -16,15 +16,15 @@ Instructions
 '''
 
 ''' Values to change for each run'''
-load_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan7\images-ANDOR1\\'
-save_address = r'E:\tchase56\TaS2\20160705\TaS2_150K\scan7\images-ANDOR1\\'
+load_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\timescan\Ni_scan_4\images-ANDOR1\\'
+save_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\timescan\Ni_scan_4\images-ANDOR1\\'
 # Delay stage settings
-delayStage_start, delayStage_end, delayStage_step  = [67.125, 67.5, 0.0075]
+delayStage_start, delayStage_end, delayStage_step  = [63.64, 65.64, 0.02]
 # Number of innermost peaks that you would like to align with respect to 
-nbpeaks = 6
+nbpeaks = 4
 # Pixel accuracy with wich to align
 pixel_accuracy = 100      # Align with accuracy of 1/(pixel_accuracy)
-ROI_width = 32      # Make sure this is a power of 2 (should be slightly faster)
+ROI_width = 64      # Make sure this is a power of 2 (should be slightly faster)
 
 
 
@@ -57,7 +57,7 @@ scan_times_aligned = []
 for i in delay:
     scan = []
     # Load sum of images
-    for j in glob.glob(load_address + '*0' + "%0.4f" % i + '*.tif'):
+    for j in glob.glob(load_address + "*%08.4f" % i + '*.tif'):
         scan.append(np.array(plt.imread(j)))
     print('delay stage ' + str(i))
     scan_times.append(np.average(np.array(scan),0))     # creating list of unaligned averaged images
@@ -67,8 +67,8 @@ for i in delay:
     scan_2 = []
     scan_2.append(scan[0])
     for k in range(1,len(scan)):
-        offset_list = [register_translation(scan[0][peak_region[l][0]:peak_region[l][1], peak_region[l][2]: peak_region[l][3]], 
-                                            scan[k][peak_region[l][0]:peak_region[l][1], peak_region[l][2]: peak_region[l][3]], 
+        offset_list = [register_translation(scan[0][int(peak_region[l][0]):int(peak_region[l][1]), int(peak_region[l][2]): int(peak_region[l][3])], 
+                                            scan[k][int(peak_region[l][0]):int(peak_region[l][1]), int(peak_region[l][2]): int(peak_region[l][3])], 
                                             pixel_accuracy)[0] for l in range(0,nbpeaks)]
         offset = np.average(offset_list,0)
         scan_2.append(shift(scan[k], offset))
@@ -83,8 +83,8 @@ if len(scan_times_aligned) > 1:
     scan_times_aligned_2 = []
     scan_times_aligned_2.append(scan_times_aligned[0])
     for l in range(1,len(scan_times_aligned)):
-        offset_list = [register_translation(scan_times_aligned[0][peak_region[m][0]:peak_region[m][1], peak_region[m][2]: peak_region[m][3]], 
-                                            scan_times_aligned[l][peak_region[m][0]:peak_region[m][1], peak_region[m][2]: peak_region[m][3]], 
+        offset_list = [register_translation(scan_times_aligned[0][int(peak_region[m][0]):int(peak_region[m][1]), int(peak_region[m][2]): int(peak_region[m][3])], 
+                                            scan_times_aligned[l][int(peak_region[m][0]):int(peak_region[m][1]), int(peak_region[m][2]): int(peak_region[m][3])], 
                                             pixel_accuracy)[0] for m in range(0,nbpeaks)]
         offset = np.average(offset_list,0)
         scan_times_aligned_2.append(shift(scan_times_aligned[l], offset))
