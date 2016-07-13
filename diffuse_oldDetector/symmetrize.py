@@ -31,14 +31,16 @@ from scipy.ndimage.interpolation import rotate
 ''' Values to change for each run''' 
 # Pixel accuracy with wich to align
 pixel_accuracy = 100      # Align with accuracy of 1/(pixel_accuracy)
-ROI_width = 32      # Make sure this is a power of 2
+ROI_width = 64      # Make sure this is a power of 2
 # Addresses for loading and saving
-load_address = r'E:\Klaus\20160630\\'
-save_address = r'E:\Klaus\20160630\\'
+load_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\long\\'
+save_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\long\\'
 # Is this the output of align_average or the output of align_different_scans
 different_scans = 1
 # Number of innermost peaks that you would like to align with respect to 
-#nbpeaks = 4
+nbpeaks = 4
+# What fold of rotation symmetry is the pattern (ex. 4-fold symmetry for FCC)
+fold = 4
 
 
 
@@ -50,11 +52,11 @@ different_scans = 1
 
 
 # Function for symmetrizing an image with six fold rotation symmetry
-def symmetrize(image):
+def symmetrize(image, fold):
     rotated = []
-    for i in range(12):
+    for i in range(fold):
         rotated.append(image)
-        image = rotate(image, 30, reshape = False)
+        image = rotate(image, 360/fold, reshape = False)
     symmetrized = np.average(rotated, 0)
     return(symmetrized)
 
@@ -62,7 +64,7 @@ def symmetrize(image):
 if different_scans == 0:
     temp = np.load(load_address + 'averaged_aligned.npy')
 else :
-    temp = np.load(load_address + 'averaged_runs_highFluence.npy')
+    temp = np.load(load_address + 'averaged_runs.npy')
         
 # Load in the runs
 runs = []
@@ -70,14 +72,16 @@ for i in range(0, np.shape(temp)[0]):
     runs.append(temp[i,:,:])
 
 # Center the image (using the average postion of the six innermost peaks)
-[peak_region, background_region] = Region_Of_Interest_2.GetRegionOfInterest(runs[0] ,4, halfLength=(ROI_width/2), contrastFactor = 0.25)
+[peak_region, background_region] = Region_Of_Interest_2.GetRegionOfInterest(runs[0] ,nbpeaks, halfLength=(ROI_width/2), contrastFactor = 0.25)
 image_center = np.shape(temp[0,:,:])[0]/2 + 0.5 -1
 diffraction_shift = []
 diffraction_center = []
 for i in range(0,np.shape(runs)[0]):
     [peak_fit_pump, peak_intensity_pump, background_intensity] = Fit_Peaks_2.FitPeaks(runs[i], peak_region, background_region, halfLength=ROI_width/2)
-    y_diffraction = np.mean([peak_fit_pump[0][0][1], peak_fit_pump[1][0][1], peak_fit_pump[2][0][1], peak_fit_pump[3][0][1]])
-    x_diffraction = np.mean([peak_fit_pump[0][1][1], peak_fit_pump[1][1][1], peak_fit_pump[2][1][1], peak_fit_pump[3][1][1]])
+    #y_diffraction = np.mean([peak_fit_pump[0][0][1], peak_fit_pump[1][0][1], peak_fit_pump[2][0][1], peak_fit_pump[3][0][1]])
+    #x_diffraction = np.mean([peak_fit_pump[0][1][1], peak_fit_pump[1][1][1], peak_fit_pump[2][1][1], peak_fit_pump[3][1][1]])
+    y_diffraction = np.mean([peak_fit_pump[l][0][1] for l in range(nbpeaks)])
+    x_diffraction = np.mean([peak_fit_pump[l][1][1] for l in range(nbpeaks)])
     diffraction_shift.append([(image_center-x_diffraction),(image_center-y_diffraction)])
     diffraction_center.append([x_diffraction,y_diffraction])
 runs_centered = []    
@@ -97,7 +101,7 @@ for i in range(0,np.shape(runs)[0]):
 # Symmetrize image
 symmetric = []
 for i in range(np.shape(rotated)[0]):
-    symmetric.append(np.array(symmetrize(rotated[i])))
+    symmetric.append(np.array(symmetrize(rotated[i], fold)))
 
 # Plot symmetrized images    
 for i in range(np.shape(symmetric)[0]):
@@ -106,4 +110,4 @@ for i in range(np.shape(symmetric)[0]):
     plt.show()
  
 # Save symmetrized images   
-np.save(save_address + 'symmetrized_highFluence.npy', symmetric)
+np.save(save_address + 'symmetrized.npy', symmetric)
