@@ -11,10 +11,11 @@ import matplotlib.pyplot as plt
 from pylab import ginput
 
 def GetRegionOfInterest(image, nRegion, contrastFactor=1.0, halfLength=40, 
-                        flagSaveFig=False, saveName='./peak_number.jpg'):
+                        flagSaveFig=False, saveName='./peak_number.jpg', message = ''):
     vmax = max(image.max(axis=0))*contrastFactor
     plt.figure(figsize=(15,15))
-    plt.imshow(image, origin='lower', vmax=vmax)
+    plt.imshow(image, vmax=vmax)
+    plt.title(message)
     plt.axis('off')
     plt.bar(0, 1, 1, 0, color="w", alpha=0.3)
     #above line added to temporarily fix graph reloading problem
