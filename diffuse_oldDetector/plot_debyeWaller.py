@@ -26,12 +26,16 @@ until you are no longer prompted to choose more peaks
 '''
 
 ''' Values to change for each run'''
-load_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\timescan\Ni_scan_4\images-ANDOR1\\'
-save_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\timescan\Ni_scan_4\images-ANDOR1\\'
+load_address = r'C:\Users\tchase56\Documents\UED\Gold_Diffuse_03212016\20160512\long_scan\\'
+save_address = r'C:\Users\tchase56\Documents\UED\Gold_Diffuse_03212016\20160512\long_scan\\'
 # Delay stage settings
-time_zero = 63.88
-delayStage_start, delayStage_end, delayStage_step  = [63.64, 65.64, 0.02]
-#delayStage_start, delayStage_end, delayStage_step  = [63.70, 65.64, 0.02]
+time_zero = 42.3
+#delayStage_start, delayStage_end, delayStage_step  = [63.64, 65.64, 0.02]
+#delayStage_start, delayStage_end, delayStage_step  = [63.70, 64.30, 0.1]
+#delayStage_start, delayStage_end, delayStage_step  = [63.7, 64.3, 0.02]
+#delayStage_start, delayStage_end, delayStage_step  = [64.04, 66.44, 0.08]
+#delayStage_start, delayStage_end, delayStage_step  = [64.04, 66.44, 0.4]
+delayStage_start, delayStage_end, delayStage_step  = [37.8, 56.55, 3.75]
 # How wide do you want the ROIs for chooseing bragg peaks?
 ROI_width = 64      
 # Which Debye-Waller peaks would you like Saved/Plotted
@@ -41,21 +45,25 @@ debye_flag_4 = 1
 debye_flag_5 = 1    
 debye_flag_6 = 0
 # Have the peak intensities been saved? (Have you chosen ROI's Already?)
-intensities_saved = 1
+intensities_saved = 0
 # Y-scale for debye-waller plots
-y_min_debye_1 = 0.9
+y_min_debye_1 = 0.91
+'''
 y_min_debye_2 = 0.9
 y_min_debye_3 = 0.9
 y_min_debye_4 = 0.9
 y_min_debye_5 = 0.9
 y_min_debye_6 = 0.9
-y_max_debye = 1.025
+'''
+y_max_debye = 1.016
+y_min_shift = 0.9991
+y_max_shift = 1.0001
 # Plot in units of ps?
 ps_flag = 1
 # How many of the initial debye-waller points do you want to scale by?
-points = 5
+points = 1
 # Is this the output of align_average or the output of align_different_scans
-different_scans = 0
+different_scans = 1
 
 
 
@@ -251,7 +259,6 @@ if ps_flag == 1:
         if debye_flag_3 == 1:
             plt.plot(delay, new_debye_gaussian_3, label = "FourthOrder/FirstOrder")
             plt.legend()
-            plt.ylim(y_min_debye_3,y_max_debye)
             plt.show()
         
             if debye_flag_4 == 1:
@@ -261,6 +268,7 @@ if ps_flag == 1:
         
                 if debye_flag_5 == 1:
                     plt.plot(delay, new_debye_gaussian_5, label = "SixthOrder/FirstOrder")
+                    #plt.legend(loc = 'lower left')
                     plt.legend()
                     plt.show()
                 
@@ -294,6 +302,7 @@ else:
         
                 if debye_flag_5 == 1:
                     plt.plot(delay_stage, new_debye_gaussian_5, label = "SixthOrder/FirstOrder")
+                    #plt.legend(loc = 'lower left')
                     plt.legend()
                     plt.show()
                 
@@ -309,7 +318,7 @@ if ps_flag == 1:
     plt.legend()
     plt.title('Lattice Expansion')
     plt.xlabel('Time Delay (ps)')
-    #plt.ylim(y_min_debye_1,y_max_debye)
+    plt.ylim(y_min_shift,y_max_shift)
     plt.show()
     plt.plot(delay, peak_expansion_2, label = 'SecondOrder Expansion')
     plt.legend()
@@ -331,7 +340,8 @@ if ps_flag == 1:
         
                 if debye_flag_5 == 1:
                     plt.plot(delay, peak_expansion_6, label = 'SixthOrder Expansion')
-                    plt.legend()
+                    plt.legend(loc = 'lower left')
+                    #plt.legend()
                     plt.show()
                 
                     if debye_flag_6 == 1:
@@ -345,7 +355,7 @@ else:
     plt.legend()
     plt.title('Lattice Expansion')
     plt.xlabel('Time Delay (ps)')
-    #plt.ylim(y_min_debye_1,y_max_debye)
+    plt.ylim(y_min_shift,y_max_shift)
     plt.show()
     plt.plot(delay_stage, peak_expansion_2, label = 'SecondOrder Expansion')
     plt.legend()
@@ -371,7 +381,8 @@ else:
         
                 if debye_flag_5 == 1:
                     plt.plot(delay_stage, peak_expansion_6, label = 'SixthOrder Expansion')
-                    plt.legend()
+                    plt.legend(loc = 'lower left')
+                    #plt.legend()
                     plt.xlabel('Time Delay (ps)')
                     plt.show()
                 
