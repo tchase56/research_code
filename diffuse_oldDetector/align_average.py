@@ -16,10 +16,11 @@ Instructions
 '''
 
 ''' Values to change for each run'''
-load_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\timescan\Ni_scan_4\images-ANDOR1\\'
-save_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\timescan\Ni_scan_4\images-ANDOR1\\'
+load_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\timescan\Ni_scan_38\images-ANDOR1\\'
+save_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\timescan\Ni_scan_38\images-ANDOR1\\'
 # Delay stage settings
-delayStage_start, delayStage_end, delayStage_step  = [63.64, 65.64, 0.02]
+#delayStage_start, delayStage_end, delayStage_step  = [63.64, 65.64, 0.02]
+delayStage_start, delayStage_end, delayStage_step  = [64.04, 66.44, 0.08]
 # Number of innermost peaks that you would like to align with respect to 
 nbpeaks = 4
 # Pixel accuracy with wich to align
