@@ -16,10 +16,13 @@ Instructions
 '''
 
 ''' Values to change for each run'''
-load_address = r'C:\Users\tchase56\Documents\UED\Gold_Diffuse_03212016\20160512\short_scan\\'
+load_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\short\\'
 # Delay stage settings
-delayStage_start, delayStage_end, delayStage_step  = [41.4, 45.0, 0.6]
-time_zero = 42.3
+#delayStage_start, delayStage_end, delayStage_step  = [64.65, 65.25, 0.1]
+delayStage_start, delayStage_end, delayStage_step  = [63.7, 64.3, 0.1]
+#time_zero = 42.3
+#time_zero = 64.67
+time_zero = 63.8
 # Flags
 clim_flag = 1     # Do you want to saturate large values on colorbar when plotting?
 clim_value = 10     # maximum value on colorbar when saturating large intensities
