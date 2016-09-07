@@ -72,5 +72,6 @@ def main():
     plt.imshow(z_4, interpolation = 'none')
     plt.title('Contracted then Expanded Back')
     plt.show()
+    
 if __name__ == "__main__" :
     main()
