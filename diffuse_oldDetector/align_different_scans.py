@@ -15,10 +15,10 @@ Instructions
 
 ''' Values to change for each run'''
 # Location of where you want averaged of scans saved
-save_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\long\\'
+save_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160629\short\\'
 # Location of list of scan folders
-load_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160628\long\\'
-scans = [39, 41, 43, 45, 47, 49, 51, 53]
+load_address = r'C:\Users\tchase56\Documents\UED\Ni\data\20160629\short\\'
+scans = [59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 78, 80, 81, 82, 84, 85, 86]
 # Number of innermost peaks that you would like to align with respect to 
 nbpeaks = 4
 pixel_accuracy = 100
@@ -42,7 +42,7 @@ import Region_Of_Interest_2
 # Load aligned files from each scan number listed above
 run = []
 for i in scans:
-    load_address_2 = load_address + 'Ni_scan_' + str(i) + '\images-ANDOR1\\'
+    load_address_2 = load_address + 'scan' + str(i) + '\images-ANDOR1\\'
     run.append(np.load(load_address_2 + 'averaged_aligned.npy'))
 # Choose ROIs for nbpeaks lowest order peaks for alignment
 [peak_region, background_region] = Region_Of_Interest_2.GetRegionOfInterest(run[0][0,:,:] ,nbpeaks, halfLength=ROI_width/2, contrastFactor = 0.25)
